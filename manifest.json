@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifest_version": "1.0.0",
+  "id": "swarm-state-mesh",
+  "name": "swarm-state-mesh",
+  "visibility": "public",
+  "maturity": "scaffolding",
+  "summary": "Experimental bounded single-process event and state reference with optimistic revisions, idempotent event IDs and opaque context references.",
+  "license": {
+    "expression": null,
+    "status": "pending-review",
+    "notes": "Repository-specific license decision remains pending review."
+  },
+  "interfaces": [
+    {
+      "name": "swarm-state-event-v1",
+      "version": "0.1.0",
+      "kind": "schema",
+      "stability": "experimental"
+    },
+    {
+      "name": "swarm-state-store-api-v1",
+      "version": "0.1.0",
+      "kind": "library",
+      "stability": "experimental"
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "swarm-runtime",
+      "constraint": "worker lifecycle and task reference contract; version TBD",
+      "kind": "contract"
+    },
+    {
+      "id": "swarm-coordination",
+      "constraint": "task IDs, dispatch lifecycle and state transition references; version TBD",
+      "kind": "contract"
+    },
+    {
+      "id": "audit-provenance",
+      "constraint": "event provenance and audit integration contract; version TBD",
+      "kind": "contract"
+    }
+  ],
+  "security": {
+    "threat_model": "docs/THREAT-MODEL.md",
+    "secrets_in_repository": false,
+    "data_classification": "public",
+    "security_contact": null
+  },
+  "default_branch": "main",
+  "compatibility": [],
+  "evidence": [
+    {
+      "claim": "Optimistic revision checks, event-ID idempotency, conflict detection and bounded event retention are tested.",
+      "kind": "test",
+      "location": "tests/test_store.py"
+    }
+  ],
+  "$id": "https://github.com/PCakes303/swarm-state-mesh/blob/main/manifest.json"
+}
