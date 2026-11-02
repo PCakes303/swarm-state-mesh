@@ -25,6 +25,8 @@ class StateEvent:
     context_refs: tuple[str, ...] = ()
 
     def validate(self, *, max_context_refs: int = 64) -> None:
+        if not isinstance(max_context_refs, int) or isinstance(max_context_refs, bool) or not 0 <= max_context_refs <= 64:
+            raise ValueError("max_context_refs must be an integer in [0, 64]")
         for name, value in (
             ("event_id", self.event_id),
             ("task_id", self.task_id),
@@ -32,7 +34,7 @@ class StateEvent:
         ):
             if not isinstance(value, str) or not _ID.fullmatch(value):
                 raise StateValidationError(f"{name} must be a bounded identifier")
-        if not isinstance(self.event_type, str) or not _EVENT_TYPE.fullmatch(self.event_type):
+        if not isinstance(self.event_type, str) or len(self.event_type) > 64 or not _EVENT_TYPE.fullmatch(self.event_type):
             raise StateValidationError("event_type must be a bounded lowercase event name")
         if not isinstance(self.payload_ref, str) or not self.payload_ref.strip() or len(self.payload_ref) > 512:
             raise StateValidationError("payload_ref must contain 1..512 characters")
