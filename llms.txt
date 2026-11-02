@@ -1,0 +1,9 @@
+# Swarm State Mesh
+
+Experimental bounded state/event store reference for versioned task state and opaque context references.
+
+- README.md: scope and quick start.
+- docs/STATE-CONTRACT.md: event, revision, idempotency and snapshot semantics.
+- docs/THREAT-MODEL.md: trust boundaries and non-goals.
+- Python API: swarm_state_mesh.
+- This is single-process in-memory state, not a distributed database, replicated mesh or consensus system.
