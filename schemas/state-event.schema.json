@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/PCakes303/swarm-state-mesh/blob/main/schemas/state-event.schema.json",
+  "title": "Swarm State Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "task_id", "actor_id", "event_type", "payload_ref", "expected_revision", "context_refs"],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "task_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "actor_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "event_type": {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+){0,7}$"},
+    "payload_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "expected_revision": {"type": "integer", "minimum": 0},
+    "context_refs": {"type": "array", "maxItems": 64, "items": {"type": "string", "minLength": 1, "maxLength": 512}}
+  }
+}
