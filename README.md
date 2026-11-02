@@ -10,7 +10,7 @@ This scaffold is a deterministic, single-process in-memory reference store—not
 - Uses optimistic revision checks to reject stale writes.
 - Makes event IDs idempotent within the current process lifetime and rejects conflicting reuse.
 - Returns deterministic event histories and unique context-reference lists.
-- Enforces bounded task, event and context-reference capacity.
+- Enforces bounded task, per-task event, aggregate event (100,000 by default) and context-reference capacity.
 - Supports an optional audit callback; configured audit failure prevents event commit.
 - Keeps payload and context references opaque; it never fetches or executes content.
 
