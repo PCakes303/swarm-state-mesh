@@ -7,7 +7,7 @@ The store handles task identifiers, event identifiers, actor identifiers, event 
 ## Controls in this scaffold
 
 - Strict bounded identifiers, event types and references.
-- Bounded task count, events per task and references per snapshot.
+- Bounded task count, per-task event count, aggregate event count, references per event and event-type length.
 - Per-task optimistic revision checks.
 - Event-ID idempotency and conflicting duplicate detection.
 - Deterministic ordered event history and context-reference snapshots.
