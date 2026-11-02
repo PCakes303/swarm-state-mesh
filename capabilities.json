@@ -8,10 +8,15 @@
       "id": "swarm.state-events",
       "name": "Versioned task state events",
       "status": "scaffolded",
-      "description": "Appends bounded task-scoped events with monotonic per-task revisions and deterministic snapshots within one process.",
+      "description": "Appends bounded task-scoped events with monotonic per-task revisions, per-task and aggregate event capacity, and deterministic snapshots within one process.",
       "evidence": [
         "swarm_state_mesh/store.py",
         "tests/test_store.py"
+      ],
+      "limitations": [
+        "State is in-memory and process-local; no durability or replication is provided.",
+        "Actor identifiers are metadata only; no writer authentication or authorization exists.",
+        "Aggregate event capacity is bounded by the configured store limit (100,000 by default)."
       ]
     },
     {
