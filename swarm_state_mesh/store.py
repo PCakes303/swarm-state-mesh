@@ -17,18 +17,22 @@ class StateStore:
         max_tasks: int = 256,
         max_events_per_task: int = 512,
         max_context_refs: int = 64,
+        max_total_events: int = 100_000,
         audit_sink: AuditSink | None = None,
     ):
         for name, value, upper in (
             ("max_tasks", max_tasks, 10000),
             ("max_events_per_task", max_events_per_task, 100000),
-            ("max_context_refs", max_context_refs, 256),
+            ("max_context_refs", max_context_refs, 64),
+            ("max_total_events", max_total_events, 1_000_000),
         ):
             if not isinstance(value, int) or isinstance(value, bool) or not 1 <= value <= upper:
                 raise ValueError(f"{name} must be an integer in [1, {upper}]")
         self.max_tasks = max_tasks
         self.max_events_per_task = max_events_per_task
         self.max_context_refs = max_context_refs
+        self.max_total_events = max_total_events
+        self._total_events = 0
         self.audit_sink = audit_sink
         self._events: dict[str, list[StateEvent]] = {}
         self._event_ids: dict[str, StateEvent] = {}
@@ -64,6 +68,8 @@ class StateStore:
                 raise StateConflict("state store task capacity reached")
             if current is not None and len(current) >= self.max_events_per_task:
                 raise StateConflict("per-task event capacity reached")
+            if self._total_events >= self.max_total_events:
+                raise StateConflict("state store total event capacity reached")
 
             audit_record = {
                 "event_id": event.event_id,
@@ -83,6 +89,7 @@ class StateStore:
                 self._events[event.task_id] = current
             current.append(event)
             self._event_ids[event.event_id] = event
+            self._total_events += 1
             return self._snapshot(event.task_id)
 
     def get(self, task_id: str) -> StateSnapshot:
