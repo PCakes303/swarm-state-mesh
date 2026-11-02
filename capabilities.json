@@ -1,0 +1,50 @@
+{
+  "capabilities_version": "1.1.0",
+  "repository": "swarm-state-mesh",
+  "repository_id": "swarm-state-mesh",
+  "maturity": "scaffolding",
+  "capabilities": [
+    {
+      "id": "swarm.state-events",
+      "name": "Versioned task state events",
+      "status": "scaffolded",
+      "description": "Appends bounded task-scoped events with monotonic per-task revisions and deterministic snapshots within one process.",
+      "evidence": [
+        "swarm_state_mesh/store.py",
+        "tests/test_store.py"
+      ]
+    },
+    {
+      "id": "swarm.state-idempotency",
+      "name": "Event ID idempotency",
+      "status": "scaffolded",
+      "description": "Returns the existing snapshot for an identical event ID and rejects conflicting reuse within process lifetime.",
+      "evidence": [
+        "swarm_state_mesh/store.py",
+        "tests/test_store.py"
+      ]
+    },
+    {
+      "id": "swarm.context-references",
+      "name": "Opaque context references",
+      "status": "scaffolded",
+      "description": "Stores bounded opaque context references without dereferencing or executing content.",
+      "evidence": [
+        "swarm_state_mesh/models.py",
+        "tests/test_models.py"
+      ]
+    }
+  ],
+  "explicit_non_capabilities": [
+    "durable persistence",
+    "replication or peer synchronization",
+    "distributed consensus or CRDT merge",
+    "authenticated or authorized writers",
+    "cryptographic event signatures",
+    "encryption or key management",
+    "content retrieval or execution",
+    "retention/compaction policy",
+    "production audit-provenance adapter",
+    "cross-process replay protection"
+  ]
+}
