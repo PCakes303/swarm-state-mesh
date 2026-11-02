@@ -9,6 +9,17 @@ def event(event_id, task="task.1", revision=0, refs=()):
 
 
 class StoreTests(unittest.TestCase):
+
+    def test_total_event_capacity_is_bounded(self):
+        store = StateStore(max_total_events=1)
+        store.append(event("event.1", task="task.1"))
+        with self.assertRaises(StateConflict):
+            store.append(event("event.2", task="task.2"))
+
+    def test_context_limit_cannot_exceed_schema_bound(self):
+        with self.assertRaises(ValueError):
+            StateStore(max_context_refs=65)
+
     def test_append_increments_revision_and_snapshots_refs(self):
         store = StateStore()
         first = store.append(event("event.1", refs=("artifact://ctx/a",)))
