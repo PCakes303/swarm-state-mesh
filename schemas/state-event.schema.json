@@ -42,7 +42,7 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 512,
-      "pattern": ".*\\S.*"
+      "pattern": "\\S"
     },
     "expected_revision": {
       "type": "integer",
@@ -55,7 +55,7 @@
         "type": "string",
         "minLength": 1,
         "maxLength": 512,
-        "pattern": ".*\\S.*"
+        "pattern": "\\S"
       }
     }
   }
