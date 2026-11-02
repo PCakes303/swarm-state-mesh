@@ -1,19 +1,28 @@
-# Repository 18 staging status
+# Repository 18 deployment and audit status
 
-Experimental single-process state/event mesh reference scaffold prepared in master staging. Includes bounded event and context-reference models, optimistic revision checks, event-ID idempotency, deterministic snapshots, optional fail-closed audit integration, JSON Schema, tests and Python 3.10–3.12 CI.
+**Repository:** [PCakes303/swarm-state-mesh](https://github.com/PCakes303/swarm-state-mesh)  
+**Audited baseline:** `dc686ed5939119fa827077e0760ca84b0edae3da`  
+**Baseline CI:** [Run 41420117940](https://github.com/PCakes303/swarm-state-mesh/actions/runs/41420117940) — success  
+**Staging source:** `provisioning/staged/swarm-state-mesh/` in the master repository.
 
-This is not a distributed database or network mesh. State is in-memory and volatile. No persistence, replication, consensus, conflict-free merge, peer discovery, authenticated access control, encryption, retention/compaction, or production audit adapter is implemented.
+## Current deployment record
 
-Dependencies on Swarm Runtime, Swarm Coordination and Audit & Provenance remain `declared`, not `tested`.
+The public remote exists and is authoritative for current implementation. The historical 18-file staging parity and CI records are provenance only; refresh path/blob-SHA parity against current `main` before portfolio sign-off.
 
-Next: deploy and verify the scaffold; then define durable storage and replication adapters, authenticated peer protocol, consistency/partition semantics, audit provenance binding and cross-repository integration fixtures.
+## Remediation in progress
 
-## Deployment verification — 2026-11-02
+The store now enforces an aggregate event limit (100,000 by default, configurable up to 1,000,000), in addition to per-task event and task limits. Context-reference configuration is capped at the schema limit of 64; event type is limited to 64 characters. Added tests for aggregate capacity and schema-aligned bounds.
 
-- Public repository: https://github.com/PCakes303/swarm-state-mesh
-- Deployment: all 18 staged files published to the `main` branch.
-- File comparison: all 18 deployed files match the master staging packet exactly.
-- Repository CI: passed on Python 3.10, 3.11 and 3.12; 15 unit tests.
-- Workflow: https://github.com/PCakes303/swarm-state-mesh/actions/runs/41419781608
-- Maturity remains `scaffolding`; this is not production-ready and no GitHub Release has been published.
-- Remaining gates: durable storage, authenticated replication, consistency/partition semantics, production audit provenance integration, and cross-repository conformance.
+## Remaining verification
+
+- Bind StateEvent model validation to the normative Draft 2020-12 schema in CI and add model/schema parity tests.
+- Integrate authenticated writer identity and authorization; actor IDs remain caller-supplied metadata.
+- Integrate authenticated durable audit provenance; current audit sink is a callback seam.
+- Define durable storage, retention/compaction, backup/recovery and replication/partition semantics before claiming mesh behavior.
+- Verify GitHub private vulnerability reporting/security advisory configuration; SECURITY.md records that no dedicated private reporting address is published.
+- Apply and verify GitHub About homepage/topics (description exists); verify branch rulesets/protection, Actions permissions, secret scanning, push protection and dependency alerts.
+- Refresh staging-to-remote path/blob-SHA parity and retain pending license status until an explicit repository/artifact decision is approved.
+
+## Maturity and limitations
+
+This remains a bounded single-process in-memory event store. It does not provide authentication, authorization, encryption, durable persistence, replication, distributed consensus, CRDT merge, cross-process replay protection, backup, compaction, retention enforcement or peer-to-peer synchronization. Actor IDs are metadata only; revision checks are not authorization.
