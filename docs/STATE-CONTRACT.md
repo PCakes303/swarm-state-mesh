@@ -18,7 +18,7 @@ An identical event ID and identical event body returns the current task snapshot
 
 ## Snapshots and bounds
 
-Snapshots expose task ID, current revision, ordered event metadata and a deterministic unique list of context references. Store capacity, per-task event count, context-reference count and identifier sizes are bounded by constructor limits.
+Snapshots expose task ID, current revision, ordered event metadata and a deterministic unique list of context references. Store task capacity, per-task event count, aggregate event count (100,000 by default), context-reference count and identifier sizes are bounded by constructor limits. Context references are capped at 64 per event to match the normative schema, and event type is capped at 64 characters.
 
 ## Audit integration
 
