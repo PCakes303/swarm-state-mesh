@@ -16,6 +16,13 @@ This scaffold is a deterministic, single-process in-memory reference store—not
 
 ## Quick start
 
+```bash
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -v
+```
+
+
+
 ```python
 from swarm_state_mesh import StateEvent, StateStore
 
