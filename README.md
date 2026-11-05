@@ -59,4 +59,4 @@ The store's task IDs and lifecycle references can be mapped by external adapters
 
 State is volatile and local to one process. Restart loses events and idempotency records. There is no authentication, authorization, encryption, replication, peer protocol, distributed locking, consensus or CRDT merge. Actor identifiers are metadata only. Opaque references are not fetched or access-controlled.
 
-See [state contract](docs/STATE-CONTRACT.md) and [threat model](docs/THREAT-MODEL.md). Python 3.10–3.12 are covered by CI. No release is published and the scoped mixed-license policy is documented in [LICENSE.md](LICENSE.md).
+See [state contract](docs/STATE-CONTRACT.md) and [threat model](docs/THREAT-MODEL.md). Python 3.10–3.12 are covered by CI. No release is published. The policy in [LICENSE.md](LICENSE.md) documents the intended mixed-license scope, but this repository's manifest license status remains `pending-review` until contributor authority, file-level provenance and third-party notices are checked.
